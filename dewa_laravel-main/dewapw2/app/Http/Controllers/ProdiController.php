@@ -54,7 +54,8 @@ class ProdiController extends Controller
      */
     public function edit(Prodi $prodi)
     {
-        //
+        $fakulitas = Fakulitas::all();
+        return view('prodi.create')->with('fakulitas', $fakulitas)->with("prodi", $prodi);
     }
 
     /**
@@ -62,7 +63,13 @@ class ProdiController extends Controller
      */
     public function update(Request $request, Prodi $prodi)
     {
-        //
+        $validasi = $request->validate([
+            "nama" => "required",
+            "fakulitas_id" => "required"
+        ]);
+        $prodi->update($validasi);
+
+        return redirect('prodi')->with('success','Data Prodi Berhasil diubah');
     }
 
     /**

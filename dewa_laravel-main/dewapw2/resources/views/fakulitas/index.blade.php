@@ -21,12 +21,24 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($fakulitas as $item)
                                     <tr>
                                         <td>{{ $item['nama'] }}</td>
+                                        <td>
+                                           
+                                             <form method="POST" action="{{ route('fakulitas.destroy', $item->id) }}">
+                                                 <a href="{{route('fakulitas.edit', $item->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                                                    @method('delete')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">Hapus Data</button>
+
+
+                                                </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -39,3 +51,12 @@
 
 
 @endsection
+
+@section('scripts')
+    <script>
+        @if (Session::get('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
+    </script>
+@endsection
+
